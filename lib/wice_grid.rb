@@ -447,13 +447,11 @@ module Wice
     end
 
     def do_count #:nodoc:
-      @relation
-        .all
-        .merge(@ar_options[:conditions]).count(
-          joins:      @ar_options[:joins],
-          include:    @ar_options[:include],
-          group:      @ar_options[:group]
-        )
+      @relation.all.merge(@ar_options[:conditions])
+        .joins(@ar_options[:joins])
+        .includes(@ar_options[:includes])
+        .group(@ar_options[:group])
+        .count
     end
 
     alias_method :size, :count
