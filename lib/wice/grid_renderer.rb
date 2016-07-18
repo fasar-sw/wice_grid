@@ -169,7 +169,7 @@ module Wice
       }
 
       opts.assert_valid_keys(options.keys)
-      options.merge!(opts)
+      options = options.merge opts
       @action_column_present = true
       column_processor_klass = Columns.get_view_column_processor(:action)
 
@@ -317,7 +317,7 @@ module Wice
       }
 
       opts.assert_valid_keys(options.keys)
-      options.merge!(opts)
+      options = options.merge opts
 
       assocs = nil
 
@@ -537,7 +537,7 @@ module Wice
 
     def base_link_for_filter(controller, extra_parameters = {})   #:nodoc:
       new_params = Wice::WgHash.deep_clone controller.params
-      new_params.merge!(extra_parameters)
+      new_params = new_params.merge extra_parameters
 
       if new_params[@grid.name]
         new_params[@grid.name].delete(:page) # we reset paging here
@@ -557,7 +557,7 @@ module Wice
 
     def link_for_export(controller, format, extra_parameters = {})   #:nodoc:
       new_params = Wice::WgHash.deep_clone controller.params
-      new_params.merge!(extra_parameters)
+      new_params = new_params.merge extra_parameters
 
       new_params[@grid.name] = {} unless new_params[@grid.name]
       new_params[@grid.name][:export] = format
@@ -579,7 +579,7 @@ module Wice
       } }
 
       cleaned_params = Wice::WgHash.deep_clone params
-      cleaned_params.merge!(extra_parameters)
+      cleaned_params = cleaned_params.merge(extra_parameters)
 
       cleaned_params.delete(:controller)
       cleaned_params.delete(:action)
