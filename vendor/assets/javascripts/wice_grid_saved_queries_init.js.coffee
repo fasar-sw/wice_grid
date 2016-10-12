@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load ready', -> savedQueriesInit()
+$(document).on 'turbolinks:load', -> savedQueriesInit()
 
 
 savedQueriesInit = ->

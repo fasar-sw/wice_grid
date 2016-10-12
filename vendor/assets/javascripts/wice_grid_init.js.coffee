@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load ready', -> initWiceGrid()
+$(document).on 'turbolinks:load', -> initWiceGrid()
 
 globalVarForAllGrids = 'wiceGrids'
 

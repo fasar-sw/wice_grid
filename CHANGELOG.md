@@ -1,3 +1,12 @@
+# 3.7.1+
+
+### Support for Rails 5, TurboLinks 5 with 'jquery.turbolinks' gem
+
+- Removed `ready` event from initialization scripts to prevent dual-setup on certain contexts (with support for the `turbolinks:load` event).
+
+_(Steve A.)_
+
+
 # 3.6.3
 
 ### Focused Filter Has Cursor/Caret at the End of Input
