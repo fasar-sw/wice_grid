@@ -507,9 +507,9 @@ module Wice
       if Rails.env.development?
         grid.output_buffer << javascript_tag(%/ $(document).ready(function(){ \n/ +
           %$ if (typeof(WiceGridProcessor) == "undefined"){\n$ +
-          %$   alert("wice_grid.js not loaded, WiceGrid cannot proceed!\n" +\n$ +
-          %(     "Make sure that you have loaded wice_grid.js.\n" + ) +
-          %(     "Add line //= require wice_grid.js " + ) +
+          %$   alert("wice_grid.js not loaded, WiceGrid cannot proceed! " +\n$ +
+          %(     "Make sure that you have loaded wice_grid.js." + ) +
+          %(     " Add line //= require wice_grid.js " + ) +
           %$     "to app/assets/javascripts/application.js")\n$ +
           %( } ) +
           %$ }) $)
