@@ -65,11 +65,20 @@ module Wice #:nodoc:
     end
 
     def prepare_data_for_calendar(options)  #:nodoc:
+      # [Steve A.] Safely format any date given as parameter:
       date_format = Wice::ConfigurationProvider.value_for(:DATE_FORMAT)
-
+      initial_date = if options[:initial_date].nil?
+        ''
+      else
+        begin
+          Date.parse( options[:initial_date] ).strftime(date_format)
+        rescue
+          ''
+        end
+      end
       CalendarData.new.tap do |calendar_data|
         calendar_data.name                      = options[:name]
-        calendar_data.date_string               = options[:initial_date].nil? ? '' : options[:initial_date].strftime(date_format)
+        calendar_data.date_string               = initial_date
         calendar_data.dom_id                    = options[:name].gsub(/([\[\(])|(\]\[)/, '_').gsub(/[\]\)]/, '').gsub(/\./, '_').gsub(/_+/, '_')
         calendar_data.datepicker_placeholder_id = calendar_data.dom_id + '_date_placeholder'
         calendar_data.date_span_id              = calendar_data.dom_id + '_date_view'
