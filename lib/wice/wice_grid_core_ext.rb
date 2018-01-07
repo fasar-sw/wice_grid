@@ -108,12 +108,28 @@ end
 
 # tag_options is a Rails views private method that takes a hash op options for
 # an HTM hash and produces a string ready to be added to the tag.
-# Here we are changing its visibility in order to be able to use it.
+# Here we copy the implementation from Rails 5.0 since it's been moved and is subject
+# to change in future Rails versions.
 module ActionView #:nodoc:
   module Helpers #:nodoc:
     module TagHelper #:nodoc:
       def public_tag_options(options, escape = true) #:nodoc:
-        tag_options(options, escape)
+        # [Steve A., 20180107] Implementation of tag_options() follows: --------
+        return if options.blank?
+        attrs = []
+        options.each_pair do |key, value|
+          if TAG_PREFIXES.include?(key) && value.is_a?(Hash)
+            value.each_pair do |k, v|
+              attrs << prefix_tag_option(key, k, v, escape)
+            end
+          elsif BOOLEAN_ATTRIBUTES.include?(key)
+            attrs << boolean_tag_option(key) if value
+          elsif !value.nil?
+            attrs << tag_option(key, value, escape)
+          end
+        end
+        " #{attrs * ' '}" unless attrs.empty?
+        # ----------------------------------------------------------------------
       end
     end
   end
