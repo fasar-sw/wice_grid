@@ -129,7 +129,16 @@ module ActionView #:nodoc:
           end
         end
         " #{attrs * ' '}" unless attrs.empty?
-        # ----------------------------------------------------------------------
+      end
+
+
+      def tag_option(key, value, escape)
+        if value.is_a?(Array)
+          value = escape ? safe_join(value, " ") : value.join(" ")
+        else
+          value = escape ? ERB::Util.unwrapped_html_escape(value) : value
+        end
+        %(#{key}="#{value}")
       end
     end
   end
